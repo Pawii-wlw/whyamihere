@@ -123,7 +123,7 @@ yesBtn.addEventListener('click', function() {
   `;
 
   // send email
-emailjs.send("service_dn3rvxr", "template_1v79j7h", {
+emailjs.send("service_oj58kby", "template_atynddt", {
     name: "Ligaya",
     time: new Date().toLocaleString(),
     message: "Ligaya clicked YES!",
@@ -160,4 +160,5 @@ noBtn.addEventListener('click', function() {
   );
 });
 });
+
 
