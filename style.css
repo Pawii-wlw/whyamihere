@@ -1,0 +1,79 @@
+/* general body */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #ffe4e1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  /* container sections */
+  .container {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+  }
+  
+  .container.active {
+    display: flex;
+  }
+  
+  h1 {
+    color: #ff69b4;
+    font-size: clamp(1.5em, 5vw, 2em);
+  }
+  
+  p {
+    color: #ff1493;
+    font-size: clamp(0.6em, 3vw, 0.8em);
+    margin: 0.5em 0
+  }
+  
+  /* buttons */
+  .fun-button {
+    padding: 1em 2em;
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(0.5em, 3vw, 0.6em);
+    border: none;
+    border-radius: 10px;
+    background-color: #ff69b4;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  /* scrollable story content */
+  .scrollable {
+    max-height: 60vh;
+    max-width: 500px;
+    width: 90%;
+    overflow-y: auto;
+    text-align: left;
+    padding: 1em;
+    margin: 1em auto;
+    line-height: 1.8;
+    font-size: clamp(0.65em, 4vw, 0.9em);
+    letter-spacing: 0.5px;
+  }
+  
+  /* optional spacing for paragraphs inside scrollable */
+  .scrollable p {
+    margin-bottom: 40em;
+
+  }
+
+  .reaction-pic {
+    max-width: 300px;
+  }
+  
