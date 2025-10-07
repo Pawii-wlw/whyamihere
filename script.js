@@ -123,9 +123,11 @@ yesBtn.addEventListener('click', function() {
   `;
 
   // send email
-  emailjs.send("service_dn3rvxr", "template_1v79j7h", {
-    choice: "YES", // this will be your template variable
-    message: "Ligaya clicked YES!"
+emailjs.send("service_dn3rvxr", "template_1v79j7h", {
+    name: "Ligaya",
+    time: new Date().toLocaleString(),
+    message: "Ligaya clicked YES!",
+    email: "no-reply@website.com"
   }).then(
     function(response) {
       console.log("SUCCESS!", response.status, response.text);
@@ -143,9 +145,11 @@ noBtn.addEventListener('click', function() {
   `;
 
   // send email
-  emailjs.send("service_dn3rvxr", "template_1v79j7h", {
-    choice: "NO",
-    message: "Ligaya clicked NO..."
+ emailjs.send("service_dn3rvxr", "template_1v79j7h", {
+    name: "Ligaya",
+    time: new Date().toLocaleString(),
+    message: "Ligaya clicked NO...",
+    email: "no-reply@website.com"
   }).then(
     function(response) {
       console.log("SUCCESS!", response.status, response.text);
@@ -156,3 +160,4 @@ noBtn.addEventListener('click', function() {
   );
 });
 });
+
