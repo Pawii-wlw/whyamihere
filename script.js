@@ -110,58 +110,53 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 // ---------- FINAL QUESTION BUTTONS ----------
-(function() {
-  emailjs.init("D9TvNzlXQBfPCCqFy"); // your public key
-})();
+emailjs.init("D9TvNzlXQBfPCCqFy"); // your public key
 
 yesBtn.addEventListener('click', function() {
-  finalQuestion.innerHTML = `
-    <h1>oh u clicked yes?</h1>
-    <img src="wow.jpg" alt="pic" class="reaction-pic">
-    <p>i wish i could hug u rn:))))</p>
-    <p>dw about your answer, its sent</p>
-  `;
-
-  // send email
-emailjs.send("service_oj58kby", "template_1v79j7h", {
+  // send email first
+  emailjs.send("service_oj58kby", "template_1v79j7h", {
     name: "Ligaya",
     time: new Date().toLocaleString(),
     message: "Ligaya clicked YES!"
   }).then(
     function(response) {
       console.log("SUCCESS!", response.status, response.text);
+
+      // update the UI after success
+      finalQuestion.innerHTML = `
+        <h1>oh u clicked yes?</h1>
+        <img src="wow.jpg" alt="pic" class="reaction-pic">
+        <p>i wish i could hug u rn:))))</p>
+        <p>dw about your answer, its sent</p>
+      `;
     },
     function(error) {
       console.log("FAILED...", error);
+      alert("something went wrong, try again"); // optional
     }
   );
 });
 
 noBtn.addEventListener('click', function() {
-  finalQuestion.innerHTML = `
-    <h1>dang</h1>
-    <img src="sad.jpg" alt="pic" class="reaction-pic">
-  `;
-
-  // send email
- emailjs.send("service_oj58kby", "template_1v79j7h", {
+  // send email first
+  emailjs.send("service_oj58kby", "template_1v79j7h", {
     name: "Ligaya",
     time: new Date().toLocaleString(),
-    message: "Ligaya clicked NO...",
+    message: "Ligaya clicked NO..."
   }).then(
     function(response) {
       console.log("SUCCESS!", response.status, response.text);
+
+      // update the UI after success
+      finalQuestion.innerHTML = `
+        <h1>dang</h1>
+        <img src="sad.jpg" alt="pic" class="reaction-pic">
+      `;
     },
     function(error) {
       console.log("FAILED...", error);
+      alert("something went wrong, try again"); // optional
     }
   );
 });
 });
-
-
-
-
-
-
-
