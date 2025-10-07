@@ -127,7 +127,7 @@ emailjs.send("service_oj58kby", "template_atynddt", {
     name: "Ligaya",
     time: new Date().toLocaleString(),
     message: "Ligaya clicked YES!",
-    email: "youremail@gmail.com"
+    email: "paulineespino15@gmail.com"
   }).then(
     function(response) {
       console.log("SUCCESS!", response.status, response.text);
@@ -149,7 +149,7 @@ noBtn.addEventListener('click', function() {
     name: "Ligaya",
     time: new Date().toLocaleString(),
     message: "Ligaya clicked NO...",
-    email: "youremail@gmail.com"
+    email: "paulineespino15@gmail.com"
   }).then(
     function(response) {
       console.log("SUCCESS!", response.status, response.text);
@@ -160,6 +160,7 @@ noBtn.addEventListener('click', function() {
   );
 });
 });
+
 
 
 
