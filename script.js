@@ -123,7 +123,7 @@ yesBtn.addEventListener('click', function() {
   `;
 
   // send email
-emailjs.send("service_oj58kby", "template_atynddt", {
+emailjs.send("service_oj58kby", "template_1v79j7h", {
     name: "Ligaya",
     time: new Date().toLocaleString(),
     message: "Ligaya clicked YES!"
@@ -144,7 +144,7 @@ noBtn.addEventListener('click', function() {
   `;
 
   // send email
- emailjs.send("service_oj58kby", "template_atynddt", {
+ emailjs.send("service_oj58kby", "template_1v79j7h", {
     name: "Ligaya",
     time: new Date().toLocaleString(),
     message: "Ligaya clicked NO...",
@@ -158,6 +158,7 @@ noBtn.addEventListener('click', function() {
   );
 });
 });
+
 
 
 
