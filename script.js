@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     section.classList.add('active');
   }
 
-  // navigation for each Next button (no inline onclicks; all handled here)
+  // navigation for each Next button
   hiLigayaNextBtn.addEventListener('click', function() {
     showSection(story);
   });
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
     startFunnyQuestions();
   });
 
-  // PROGRESSIVE MESSAGES
+  // PROGRESSIVE MESSAGES (FIXED: all commas present!)
   const messages = [
     "so what do u think of that", 
     "okay ba yon??? kung hindi",
@@ -182,7 +182,6 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   });
 
-  // Expose to window if you want manual navigation in console/debugging:
   window.showSection = showSection;
   window.startFunnyQuestions = startFunnyQuestions;
 });
