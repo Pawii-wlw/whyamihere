@@ -74,12 +74,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // ---------- PROGRESSIVE MESSAGES ----------
   const messages = [
     "so what do u think of that", 
-    "was it good?",
-    "madaming part dyan ang cringe, pero okay lang yon no",
+    "okay ba yon??? kung hindi",
+    "wag na wag na, i delete na to",
+    "HAHAHHA baliw yan",
     "gusto ko lang talaga iyabang website ko sayo",
     "emerut",
     "i made this website for u talaga",
-    "i dont have the guts to ask u in person, so dito nalang HAHHAHA",
+    "i dont have the guts to ask u in person e, so dito nalang HAHHAHA",
     "ummm",
     "uhhhhhhhhh",
     "jusko po",
@@ -88,6 +89,8 @@ document.addEventListener('DOMContentLoaded', function () {
     "yon"
     "hmmm",
     "sooooo",
+    "may graham ba kayo? padala nalang if meron:)))",
+    "okay last na talaga"
     "last next na to...",
     "engk HAHHAHA",
     "okay serious time",
@@ -118,7 +121,7 @@ emailjs.init("D9TvNzlXQBfPCCqFy"); // your public key
   // create loading overlay
 const loadingOverlay = document.createElement("div");
 loadingOverlay.className = "loading-overlay";
-loadingOverlay.textContent = "wait lang...";
+loadingOverlay.textContent = "wait lang tomboy...";
 document.body.appendChild(loadingOverlay);
 
 function showLoading() {
@@ -140,10 +143,10 @@ yesBtn.addEventListener('click', function() {
     function(response) {
       hideLoading(); // hide after it sends
       finalQuestion.innerHTML = `
-        <h1>oh u clicked yes?</h1>
+        <h1>oh dang</h1>
         <img src="wow.jpg" alt="pic" class="reaction-pic">
-        <p>i wish i could hug u rn:))))</p>
-        <p>dw about your answer, its sent</p>
+        <p>merry christmas talaga</p>
+        <p>dw about your answer, nakasend na sakin yan:)))</p>
       `;
     },
     function(error) {
@@ -164,8 +167,9 @@ noBtn.addEventListener('click', function() {
     function(response) {
      hideLoading();
       finalQuestion.innerHTML = `
-        <h1>dang</h1>
+        <h1>aww</h1>
         <img src="sad.jpg" alt="pic" class="reaction-pic">
+        <p>its okay po</p>
       `;
     },
     function(error) {
@@ -175,5 +179,3 @@ noBtn.addEventListener('click', function() {
   );
 });
 });
-
-
