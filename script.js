@@ -75,20 +75,23 @@ document.addEventListener('DOMContentLoaded', function () {
   const messages = [
     "so what do u think of that", 
     "was it good?",
-    "i made this to test my coding skills",
-    "nah js kidding",
-    "i made this website for u",
-    "i dont have the courage to ask u in person, but i'll ask u in a way im passionate about",
+    "madaming part dyan ang cringe, pero okay lang yon no",
+    "gusto ko lang talaga iyabang website ko sayo",
+    "emerut",
+    "i made this website for u talaga",
+    "i dont have the guts to ask u in person, so dito nalang HAHHAHA",
     "ummm",
     "uhhhhhhhhh",
     "jusko po",
     "parang matatae ako HAHHAHA",
+    "pasko naba? merry christmas tomboy",
+    "yon"
     "hmmm",
     "sooooo",
     "last next na to...",
     "engk HAHHAHA",
     "okay serious time",
-    "i wanna make u MY special someone..",
+    "simple question lang naman i2 so",
     "would...",
     "u...."
   ];
@@ -115,7 +118,7 @@ emailjs.init("D9TvNzlXQBfPCCqFy"); // your public key
   // create loading overlay
 const loadingOverlay = document.createElement("div");
 loadingOverlay.className = "loading-overlay";
-loadingOverlay.textContent = "wait lang ha... loading :>";
+loadingOverlay.textContent = "wait lang...";
 document.body.appendChild(loadingOverlay);
 
 function showLoading() {
@@ -172,4 +175,5 @@ noBtn.addEventListener('click', function() {
   );
 });
 });
+
 
