@@ -2,13 +2,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // elements
   const hiLigaya = document.getElementById('hi-ligaya');
+  const hiLigayaNextBtn = document.getElementById('hiLigayaNextBtn');
   const story = document.getElementById('story');
-  const last = document.getElementById('last');
-  const funnyQuestions = document.getElementById('funnyQuestions');
-  const finalQuestion = document.getElementById('finalQuestionSection');
   const storyContent = document.getElementById('storyContent');
   const storyNextBtn = document.getElementById('storyNextBtn');
+  const last = document.getElementById('last');
   const lastButton = document.getElementById('lastButton');
+  const funnyQuestions = document.getElementById('funnyQuestions');
+  const finalQuestion = document.getElementById('finalQuestionSection');
   const funnyQuestionText = document.getElementById('funnyQuestionText');
   const nextBtn = document.getElementById('nextBtn');
   const yesBtn = document.getElementById('yesBtn');
@@ -20,24 +21,23 @@ document.addEventListener('DOMContentLoaded', function () {
     section.classList.add('active');
   }
 
-  // navigation
-  window.goToStory = () => showSection(story);
-  window.goToLast = () => showSection(last);
+  // navigation for each Next button (no inline onclicks; all handled here)
+  hiLigayaNextBtn.addEventListener('click', function() {
+    showSection(story);
+  });
 
-  // ---------- STORY SCROLL CHECK ----------
   storyNextBtn.disabled = true;
   storyNextBtn.style.opacity = "0.5";
 
+  // STORY SCROLL CHECK
   function checkIfLikeUVisible() {
     const text = storyContent.innerText.toLowerCase();
     const likeUIndex = text.indexOf("i like u");
     if (likeUIndex === -1) return; // no match found
 
     const range = document.createRange();
-    const selection = window.getSelection();
-    selection.removeAllRanges();
 
-    // create range around the text "i like u"
+    // Find "i like u" inside the storyContent
     const walker = document.createTreeWalker(storyContent, NodeFilter.SHOW_TEXT);
     let currentNode, found = false;
     while (walker.nextNode()) {
@@ -66,12 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
     storyContent.addEventListener(ev, () => setTimeout(checkIfLikeUVisible, 50), { passive: true });
   });
 
-  // story next button
   storyNextBtn.addEventListener('click', function() {
     if (!storyNextBtn.disabled) showSection(last);
   });
 
-  // ---------- PROGRESSIVE MESSAGES ----------
+  lastButton.addEventListener('click', function() {
+    startFunnyQuestions();
+  });
+
+  // PROGRESSIVE MESSAGES
   const messages = [
     "so what do u think of that", 
     "okay ba yon??? kung hindi",
@@ -86,11 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
     "jusko po",
     "parang matatae ako HAHHAHA",
     "pasko naba? merry christmas tomboy",
-    "yon"
+    "yon",
     "hmmm",
     "sooooo",
     "may graham ba kayo? padala nalang if meron:)))",
-    "okay last na talaga"
+    "okay last na talaga",
     "last next na to...",
     "engk HAHHAHA",
     "okay serious time",
@@ -100,11 +103,11 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
   let currentMessage = 0;
 
-  window.startFunnyQuestions = function () {
+  function startFunnyQuestions() {
     currentMessage = 0;
     showSection(funnyQuestions);
     funnyQuestionText.textContent = messages[currentMessage];
-  };
+  }
 
   nextBtn.addEventListener('click', function() {
     currentMessage++;
@@ -115,67 +118,71 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-// ---------- FINAL QUESTION BUTTONS ----------
-emailjs.init("D9TvNzlXQBfPCCqFy"); // your public key
-  
+  // FINAL QUESTION BUTTONS
+  emailjs.init("D9TvNzlXQBfPCCqFy"); // your public key
+
   // create loading overlay
-const loadingOverlay = document.createElement("div");
-loadingOverlay.className = "loading-overlay";
-loadingOverlay.textContent = "wait lang tomboy...";
-document.body.appendChild(loadingOverlay);
+  const loadingOverlay = document.createElement("div");
+  loadingOverlay.className = "loading-overlay";
+  loadingOverlay.textContent = "wait lang tomboy...";
+  document.body.appendChild(loadingOverlay);
 
-function showLoading() {
-  loadingOverlay.classList.add("active");
-}
+  function showLoading() {
+    loadingOverlay.classList.add("active");
+  }
 
-function hideLoading() {
-  loadingOverlay.classList.remove("active");
-}
+  function hideLoading() {
+    loadingOverlay.classList.remove("active");
+  }
 
-yesBtn.addEventListener('click', function() {
-  showLoading(); // show blur + loading
-  
-  emailjs.send("service_oj58kby", "template_1v79j7h", {
-    name: "Ligaya",
-    time: new Date().toLocaleString(),
-    message: "Ligaya clicked YES!"
-  }).then(
-    function(response) {
-      hideLoading(); // hide after it sends
-      finalQuestion.innerHTML = `
-        <h1>oh dang</h1>
-        <img src="wow.jpg" alt="pic" class="reaction-pic">
-        <p>merry christmas talaga</p>
-        <p>dw about your answer, nakasend na sakin yan:)))</p>
-      `;
-    },
-    function(error) {
-      hideLoading();
-      alert("something went wrong, try again"); // optional
-    }
-  );
-});
+  yesBtn.addEventListener('click', function() {
+    showLoading();
 
-noBtn.addEventListener('click', function() {
-  showLoading();
-  
-  emailjs.send("service_oj58kby", "template_1v79j7h", {
-    name: "Ligaya",
-    time: new Date().toLocaleString(),
-    message: "Ligaya clicked NO..."
-  }).then(
-    function(response) {
-     hideLoading();
-      finalQuestion.innerHTML = `
-        <h1>aww</h1>
-        <img src="sad.jpg" alt="pic" class="reaction-pic">
-        <p>its okay po</p>
-      `;
-    },
-    function(error) {
-      hideLoading();
-      alert("something went wrong, try again"); // optional
-    }
-  );
-});
+    emailjs.send("service_oj58kby", "template_1v79j7h", {
+      name: "Ligaya",
+      time: new Date().toLocaleString(),
+      message: "Ligaya clicked YES!"
+    }).then(
+      function(response) {
+        hideLoading();
+        finalQuestion.innerHTML = `
+          <h1>oh dang</h1>
+          <img src="wow.jpg" alt="pic" class="reaction-pic">
+          <p>merry christmas talaga</p>
+          <p>dw about your answer, nakasend na sakin yan:)))</p>
+        `;
+      },
+      function(error) {
+        hideLoading();
+        alert("something went wrong, try again");
+      }
+    );
+  });
+
+  noBtn.addEventListener('click', function() {
+    showLoading();
+
+    emailjs.send("service_oj58kby", "template_1v79j7h", {
+      name: "Ligaya",
+      time: new Date().toLocaleString(),
+      message: "Ligaya clicked NO..."
+    }).then(
+      function(response) {
+        hideLoading();
+        finalQuestion.innerHTML = `
+          <h1>aww</h1>
+          <img src="sad.jpg" alt="pic" class="reaction-pic">
+          <p>its okay po</p>
+        `;
+      },
+      function(error) {
+        hideLoading();
+        alert("something went wrong, try again");
+      }
+    );
+  });
+
+  // Expose to window if you want manual navigation in console/debugging:
+  window.showSection = showSection;
+  window.startFunnyQuestions = startFunnyQuestions;
 });
