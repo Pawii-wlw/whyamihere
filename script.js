@@ -111,18 +111,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ---------- FINAL QUESTION BUTTONS ----------
 emailjs.init("D9TvNzlXQBfPCCqFy"); // your public key
+  
+  // create loading overlay
+const loadingOverlay = document.createElement("div");
+loadingOverlay.className = "loading-overlay";
+loadingOverlay.textContent = "wait lang ha... loading :>";
+document.body.appendChild(loadingOverlay);
+
+function showLoading() {
+  loadingOverlay.classList.add("active");
+}
+
+function hideLoading() {
+  loadingOverlay.classList.remove("active");
+}
 
 yesBtn.addEventListener('click', function() {
-  // send email first
+  showLoading(); // show blur + loading
+  
   emailjs.send("service_oj58kby", "template_1v79j7h", {
     name: "Ligaya",
     time: new Date().toLocaleString(),
     message: "Ligaya clicked YES!"
   }).then(
     function(response) {
-      console.log("SUCCESS!", response.status, response.text);
-
-      // update the UI after success
+      hideLoading(); // hide after it sends
       finalQuestion.innerHTML = `
         <h1>oh u clicked yes?</h1>
         <img src="wow.jpg" alt="pic" class="reaction-pic">
@@ -131,32 +144,32 @@ yesBtn.addEventListener('click', function() {
       `;
     },
     function(error) {
-      console.log("FAILED...", error);
+      hideLoading();
       alert("something went wrong, try again"); // optional
     }
   );
 });
 
 noBtn.addEventListener('click', function() {
-  // send email first
+  showLoading();
+  
   emailjs.send("service_oj58kby", "template_1v79j7h", {
     name: "Ligaya",
     time: new Date().toLocaleString(),
     message: "Ligaya clicked NO..."
   }).then(
     function(response) {
-      console.log("SUCCESS!", response.status, response.text);
-
-      // update the UI after success
+     hideLoading();
       finalQuestion.innerHTML = `
         <h1>dang</h1>
         <img src="sad.jpg" alt="pic" class="reaction-pic">
       `;
     },
     function(error) {
-      console.log("FAILED...", error);
+      hideLoading();
       alert("something went wrong, try again"); // optional
     }
   );
 });
 });
+
