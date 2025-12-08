@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
     "uhhhhhhhhh",
     "jusko po",
     "parang matatae ako HAHHAHA",
-    "pasko naba? merry christmas tomboy",
+    "pasko naba? merry christmas tomboy, or new year na? happy new year tombits",
     "yon",
     "hmmm",
     "sooooo",
@@ -97,6 +97,14 @@ document.addEventListener('DOMContentLoaded', function () {
     "last next na to...",
     "engk HAHHAHA",
     "okay serious time",
+    "i want to start our new yr a literal NEW YEAR",
+    "i want to start it with u",
+    "serious ako ah HAHAHHA",
+    "idk if its too early",
+    "but i really wanna know u better, di ko alam limitations ko pag ganto set up e",
+    "maybe this would turn out great diba",
+    "and dun din naman sya papunta",
+    "so heres my question",
     "simple question lang naman i2 so",
     "would...",
     "u...."
@@ -148,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
         finalQuestion.innerHTML = `
           <h1>oh dang</h1>
           <img src="wow.jpg" alt="pic" class="reaction-pic">
-          <p>merry christmas talaga</p>
+          <p>happy new year:))</p>
           <p>dw about your answer, nakasend na sakin yan:)))</p>
         `;
       },
