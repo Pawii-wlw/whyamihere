@@ -97,17 +97,16 @@ document.addEventListener('DOMContentLoaded', function () {
     "last next na to...",
     "engk HAHHAHA",
     "okay serious time",
-    "i want to start our new yr a literal NEW YEAR",
-    "i want to start it with u",
     "serious ako ah HAHAHHA",
     "idk if its too early",
     "but i really wanna know u better, di ko alam limitations ko pag ganto set up e",
-    "maybe this would turn out great diba",
+    "idk how to act",
+    "and maybe this would turn out great diba",
     "and dun din naman sya papunta",
+    "anyway happy new year, i hope this year, u would prioritize yourself more, u would take care of yourself more and please no more self harm ah, thank u for making half of the year interesting",
     "so heres my question",
-    "simple question lang naman i2 so",
-    "would...",
-    "u...."
+    "simple question lang naman i2 ",
+    "umm...",
   ];
   let currentMessage = 0;
 
@@ -193,3 +192,4 @@ document.addEventListener('DOMContentLoaded', function () {
   window.showSection = showSection;
   window.startFunnyQuestions = startFunnyQuestions;
 });
+
