@@ -14,12 +14,39 @@ document.addEventListener('DOMContentLoaded', function () {
   const nextBtn = document.getElementById('nextBtn');
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
+  const moreBtn = document.getElementById('moreBtn');
+  const moreSection = document.getElementById('moreSection');
+  const moreBackBtn = document.getElementById('moreBackBtn');
+  const envelopes = document.querySelectorAll('.envelope');
+  const letterOverlay = document.getElementById('letterOverlay');
+  const letterContent = document.getElementById('letterContent');
+  const closeLetterBtn = document.querySelector('.close-letter');
+
+  envelopes.forEach((env) => {
+    env.addEventListener('click', () => {
+      const letterText = env.querySelector('.letter p').textContent; // Get the content from the HTML
+      letterContent.textContent = letterText; // Set it in the overlay
+      letterOverlay.classList.add('active');
+    });
+  });
+
+  closeLetterBtn.addEventListener('click', () => {
+    letterOverlay.classList.remove('active');
+  });
 
   // show section helper
   function showSection(section) {
-    [hiLigaya, story, last, funnyQuestions, finalQuestion].forEach(s => s.classList.remove('active'));
+    [hiLigaya, story, last, funnyQuestions, finalQuestion, moreSection].forEach(s => s.classList.remove('active'));
     section.classList.add('active');
   }
+
+  moreBtn.addEventListener('click', function() {
+    showSection(moreSection);
+  });
+
+  moreBackBtn.addEventListener('click', function (){
+    showSection(hiLigaya);
+  });
 
   // navigation for each Next button
   hiLigayaNextBtn.addEventListener('click', function() {
@@ -192,4 +219,3 @@ document.addEventListener('DOMContentLoaded', function () {
   window.showSection = showSection;
   window.startFunnyQuestions = startFunnyQuestions;
 });
-
