@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://pawii-wlw.github.io/whyamihere/">
 
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Caveat&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -22,18 +22,16 @@
     </div>
   </div>
   
-  <!-- hi ligaya -->
   <section id="hi-ligaya" class="container active">
     <h1>hi broker yoj</h1>
     <img src="wink.jpg" alt="pic" class="reaction-pic">
     <p>nagolat kabuh</p>
     <div class="button-group">
-    <button id="hiLigayaNextBtn" class="fun-button">next</button>
-    <button id="moreBtn" class="fun-button">more</button>
+      <button id="hiLigayaNextBtn" class="fun-button">next</button>
+      <button id="moreBtn" class="fun-button">more</button>
     </div>
   </section>
 
-  <!--more-->
   <section id="moreSection" class="container">
     <div class="envelope-grid">
       <div class="envelope">
@@ -64,10 +62,23 @@
         </div>
       </div>
     </div>    
-    <button id="moreBackBtn" class="fun-button">back</button>
+    <div class="button-group">
+      <button id="moreBackBtn" class="fun-button">back</button>
+      <button id="sentLettersBtn" class="fun-button">sent letters</button>
+      <button id="openEditorBtn" class="fun-button">send a letter</button>
+    </div>
   </section>
 
-  <!-- story time -->
+  <section id="sentLettersSection" class="container">
+    <h1>your sent letters</h1>
+    <div id="lettersStorageList" class="envelope-grid scrollable">
+      <p style="opacity: 0.5; grid-column: 1/-1; text-align: center;">No letters sent yet...</p>
+    </div>
+    <div class="button-group">
+      <button id="storageBackBtn" class="fun-button">back</button>
+    </div>
+  </section>
+
   <section id="story" class="container">
     <h1>story time</h1>
     <div class="scrollable" id="storyContent">
@@ -77,14 +88,9 @@
       <p>joke lang</p>
       <p>i made this to clear everything</p>
       <p>pero i'll leave u a lil chismis</p>
-      <p></p>
       <p>sooo</p>
       <p>hi baklita</p>
       <p>idk your intentions sakin pero im reminding u na im not easy to handle emeruttt</p>
-      <p>jusko bading, di ko alam talaga anong nakain natin bakit tayo nagusap sa notes before</p>
-      <p>mga takot na takot mag first move ah</p>
-      <p>siguro kung di pa kita tanungin mag rolbox</p>
-      <p>di tayo maguusap HAHHAHHAHA</p>
       <p>jusko te, day by day, na eearn mo na talaga trust ko kaya naging mas comfy ako sayo e</p>
       <p>alam mo bang nahihiya ako habang tinatype ko to kasi feel ko cringe talaga, which is totoo naman</p>
       <p>lakas mo sakin tomboy ka, may pa site pa kong ginawa masabi ko lang mga to</p>
@@ -98,15 +104,10 @@
       <p>you're the first person na binigyan ko ng flower HAHHHAHHA, di ko alam kung nasabi ko na sya pero ayon</p>
       <p>remember the flower i bought for u IN RETURN??? LOLLLL u dont know how much i tried to back out kasi sobrang nakakahiya ibigay</p>
       <p>my friends hyped me up, from planning to what kind of flowers ang bibilhin, to how ko sya maibibigay sayo</p>
-      <p>on my way sa playground w naia para na kong natatae non, gusto ko nalang talaga ipaabot kay naia kasi para akong maiiyak sa hiya,
-      then nag notif chat mo na nasa pen kayo, that time lalo na kong nahiya kasi baka kako sign na yon para ipaabot ko nalang HHAHHAHA,
-      e si naia kasama ko, sobrang mapilit nya HHAHAHHA, sunod daw kami, edi sumunod kami</p>
-      <p>syempre nasa pen, wala akong lakas ng loob ibigay sayo yon kasi jusko, andami ng tao HAHHAHA so nag decide kami ni naia na
-      pag pauwi nalang, tsaka ko ibibigay, alam mo ba sabi ni naia nyan, sabi nya pag kahatid nalang daw ni kira kasi nga gusto
-      din daw makita ni kira na ibibigay ko haha</p>
+      <p>on my way sa playground w naia para na kong natatae non, gusto ko nalang talaga ipaabot kay naia kasi para akong maiiyak sa hiya, then nag notif chat mo na nasa pen kayo, that time lalo na kong nahiya kasi baka kako sign na yon para ipaabot ko nalang HHAHHAHA, e si naia kasama ko, sobrang mapilit nya HHAHAHHA, sunod daw kami, edi sumunod kami</p>
+      <p>syempre nasa pen, wala akong lakas ng loob ibigay sayo yon kasi jusko, andami ng tao HAHHAHA so nag decide kami ni naia na pag pauwi nalang, tsaka ko ibibigay, alam mo ba sabi ni naia nyan, sabi nya pag kahatid nalang daw ni kira kasi nga gusto din daw makita ni kira na ibibigay ko haha</p>
       <p>edi yon, wala akong choice but to give it to u kila kira, it was success naman HAHAHA dibaaaa</p>
-      <p>and remember that rose, gagi muntik na ko mamatay sa hiya nyan HHAHAHHA, nung papunta kami sobrang tapang ko pa,
-      jusko lumabas ka kasi e HAHHAHHAHAH, NAG GAY PANIC AKO INE</p>
+      <p>and remember that rose, gagi muntik na ko mamatay sa hiya nyan HHAHAHHA, nung papunta kami sobrang tapang ko pa, jusko lumabas ka kasi e HAHHHHAHHAH, NAG GAY PANIC AKO INE</p>
       <p>habang nag cchika ako dito, nangingiti padin ako HAHHAHHAHHAHHAHAHHAHHA</p>
       <p>oa yan</p>
       <p>grabe sobrang special mo naman</p>
@@ -114,7 +115,7 @@
       <p>natatameme pag kasama ka e HHAHAHHHH</p>
       <p>kainis naalala ko yung sa dam HAHHAHHAHAHA</p>
       <p>okay so</p>
-      <p>daming say ng tomboy na to no</p>
+      <p>daming say ng tomboy na no</p>
       <p>pabida kasi</p>
       <p>i guess thats all the chika na kaya kong i chika HAHHAHAH</p>
       <p>-100000000 sanity</p>
@@ -129,25 +130,59 @@
       <p>im excited everytime na nag cchat ka so, i am down bad HAHHAHHA</p>
       <p>ang pretty mo no</p>
       <p>HAHAHHAHAHAHH NAPAKA RANDOM</p>
-      <p>so </p>
-      <p></p>
-      <p></p>
-      <p>i'll cut it</p>
+      <p>so i'll cut it</p>
       <p>in short</p>
       <p>i like u</p>
-      <img src="blushing.jpg" alt="pic" class="reaction-pic">
+      <p><img src="blushing.jpg" alt="pic" class="reaction-pic"></p>
     </div>
-    <button id="storyNextBtn" class="fun-button">next</button>
+    <div class="button-group">
+      <button id="storyBackBtn" class="fun-button">back</button>
+      <button id="storyNextBtn" class="fun-button">next</button>
+    </div>
   </section>
 
-  <!-- last button -->
+  <section id="letterEditor" class="container">
+    <h1>decorate your envelope</h1>
+    <div class="envelope-wrapper">
+        <canvas id="doodleCanvas"></canvas>
+        <div class="custom-envelope" id="previewEnvelope">
+            <div class="envelope-top"></div>
+        </div>
+    </div>
+    <div class="controls">
+      <label>Envelope:</label>
+      <input type="color" id="colorPicker" value="#ffb6c1">
+      
+      <label>Flap:</label>
+      <input type="color" id="flapColorPicker" value="#ff69b4">
+      
+      <label>Pen:</label>
+      <input type="color" id="penColorPicker" value="#ff1493"> 
+      <button id="clearBtn" class="fun-button">clear</button>
+    </div>
+    <div class="button-group">
+      <button id="editorBackBtn" class="fun-button">back</button>
+      <button id="writeLetterBtn" class="fun-button">next: write</button>
+    </div>
+  </section>
+
+  <section id="writingDesk" class="container">
+    <h1>write your message</h1>
+    <div class="stationery-paper">
+        <textarea id="letterText" placeholder="Dear..."></textarea>
+    </div>
+    <div class="button-group">
+      <button id="writingBackBtn" class="fun-button">back</button>
+      <button id="sendLetterBtn" class="fun-button">send</button>
+    </div>
+  </section>
+
   <section id="last" class="container">
     <h1>so...</h1>
     <img src="grin.jpg" alt="pic" class="reaction-pic">
     <button id="lastButton" class="fun-button">next</button>
   </section>
 
-  <!-- progressive messages before final question -->
   <section id="funnyQuestions" class="container">
     <h1 id="funnyQuestionText"></h1>
     <div class="button-group">
@@ -155,7 +190,6 @@
     </div>
   </section>
 
-  <!-- final question -->
   <section id="finalQuestionSection" class="container">
     <h1>will u be my girlfriend?</h1>
     <img src="praying.jpg" alt="pic" class="reaction-pic">
@@ -165,10 +199,8 @@
     </div>
   </section>
 
-  <script type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-  </script>
-
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
   <script src="script.js"></script>
 
 </body>
