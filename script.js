@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  // elements
+  // Elements
   const hiLigaya = document.getElementById('hi-ligaya');
   const hiLigayaNextBtn = document.getElementById('hiLigayaNextBtn');
   const story = document.getElementById('story');
   const storyContent = document.getElementById('storyContent');
+  const storyBackBtn = document.getElementById('storyBackBtn');
   const storyNextBtn = document.getElementById('storyNextBtn');
   const last = document.getElementById('last');
   const lastButton = document.getElementById('lastButton');
@@ -21,56 +22,175 @@ document.addEventListener('DOMContentLoaded', function () {
   const letterOverlay = document.getElementById('letterOverlay');
   const letterContent = document.getElementById('letterContent');
   const closeLetterBtn = document.querySelector('.close-letter');
+  const openEditorBtn = document.getElementById('openEditorBtn');
+  const letterEditor = document.getElementById('letterEditor');
+  const editorBackBtn = document.getElementById('editorBackBtn'); 
+  const colorPicker = document.getElementById('colorPicker');
+  const flapColorPicker = document.getElementById('flapColorPicker'); 
+  const previewEnvelope = document.getElementById('previewEnvelope');
+  const canvas = document.getElementById('doodleCanvas');
+  const penColorPicker = document.getElementById('penColorPicker');
+  const writeLetterBtn = document.getElementById('writeLetterBtn');
+  const writingDesk = document.getElementById('writingDesk');
+  const writingBackBtn = document.getElementById('writingBackBtn');
+  const sendLetterBtn = document.getElementById('sendLetterBtn');
+  const letterText = document.getElementById('letterText');
+
+  // --- NEW ELEMENTS FOR SENT LETTERS ---
+  const sentLettersBtn = document.getElementById('sentLettersBtn');
+  const sentLettersSection = document.getElementById('sentLettersSection');
+  const storageBackBtn = document.getElementById('storageBackBtn');
+  const lettersStorageList = document.getElementById('lettersStorageList');
+
+  // --- SIGNATURE PAD & CANVAS FIX ---
+  let signaturePad;
+
+  function resizeCanvas() {
+    if (!canvas) return;
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    canvas.getContext("2d").scale(ratio, ratio);
+    
+    if (signaturePad) {
+      signaturePad.clear(); 
+    }
+  }
+
+  if (typeof SignaturePad !== 'undefined' && canvas) {
+    signaturePad = new SignaturePad(canvas);
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+  }
+
+  // --- LOCAL STORAGE LOGIC ---
+  function saveLetterLocally(content) {
+    let saved = JSON.parse(localStorage.getItem('joys_letters')) || [];
+    saved.push({
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      text: content
+    });
+    localStorage.setItem('joys_letters', JSON.stringify(saved));
+  }
+
+  // --- ENVELOPE PILE UI ---
+  function updateLettersStorageUI() {
+    let saved = JSON.parse(localStorage.getItem('joys_letters')) || [];
+    if (saved.length === 0) {
+      lettersStorageList.innerHTML = `<p style="opacity: 0.5; padding: 20px; grid-column: 1/-1;">Wala ka pang sinesend na sulat, tomboy!</p>`;
+      return;
+    }
+
+    lettersStorageList.innerHTML = saved.map((letter) => `
+      <div class="envelope stored-envelope" style="cursor: pointer;">
+        <div class="envelope-top"></div>
+        <div class="letter">
+          <p style="display: none;">${letter.text}</p>
+          <span style="font-size: 0.5em; position: absolute; bottom: 5px; right: 5px; color: #ff69b4;">
+            ${letter.date}
+          </span>
+        </div>
+      </div>
+    `).reverse().join(''); 
+
+    const storedEnvs = lettersStorageList.querySelectorAll('.stored-envelope');
+    storedEnvs.forEach(env => {
+      env.addEventListener('click', () => {
+        const text = env.querySelector('.letter p').textContent;
+        letterContent.textContent = text;
+        letterOverlay.classList.add('active');
+      });
+    });
+  }
+
+  // --- NAVIGATION LOGIC ---
+  writeLetterBtn.addEventListener('click', () => showSection(writingDesk));
+  writingBackBtn.addEventListener('click', () => showSection(letterEditor));
+
+  if (editorBackBtn) {
+    editorBackBtn.addEventListener('click', () => showSection(moreSection));
+  }
+
+  if (openEditorBtn) {
+    openEditorBtn.addEventListener('click', () => {
+      showSection(letterEditor);
+      setTimeout(resizeCanvas, 10); 
+    });
+  }
+
+  sentLettersBtn.addEventListener('click', () => {
+    updateLettersStorageUI();
+    showSection(sentLettersSection);
+  });
+
+  storageBackBtn.addEventListener('click', () => showSection(moreSection));
+  moreBtn.addEventListener('click', () => showSection(moreSection));
+  moreBackBtn.addEventListener('click', () => showSection(hiLigaya));
+  hiLigayaNextBtn.addEventListener('click', () => showSection(story));
+  storyBackBtn.addEventListener('click', () => showSection(hiLigaya));
+
+  // --- EDITOR CONTROLS ---
+  if (penColorPicker && signaturePad) {
+    penColorPicker.addEventListener('input', (e) => {
+      signaturePad.penColor = e.target.value;
+    });
+  }
+
+  const clearBtn = document.getElementById('clearBtn');
+  if (clearBtn && signaturePad) {
+    clearBtn.addEventListener('click', () => signaturePad.clear());
+  }
+
+  if (colorPicker && previewEnvelope) {
+    colorPicker.addEventListener('input', (e) => {
+      previewEnvelope.style.backgroundColor = e.target.value;
+    });
+  }
+
+  if (flapColorPicker && previewEnvelope) {
+    const flap = previewEnvelope.querySelector('.envelope-top');
+    flapColorPicker.addEventListener('input', (e) => {
+      if (flap) flap.style.backgroundColor = e.target.value;
+    });
+  }
 
   envelopes.forEach((env) => {
     env.addEventListener('click', () => {
-      const letterText = env.querySelector('.letter p').textContent; // Get the content from the HTML
-      letterContent.textContent = letterText; // Set it in the overlay
+      const text = env.querySelector('.letter p').textContent;
+      letterContent.textContent = text;
       letterOverlay.classList.add('active');
     });
   });
 
-  closeLetterBtn.addEventListener('click', () => {
-    letterOverlay.classList.remove('active');
-  });
+  closeLetterBtn.addEventListener('click', () => letterOverlay.classList.remove('active'));
 
-  // show section helper
   function showSection(section) {
-    [hiLigaya, story, last, funnyQuestions, finalQuestion, moreSection].forEach(s => s.classList.remove('active'));
+    if (!section) return;
+    const allSections = [
+        hiLigaya, story, last, funnyQuestions, 
+        finalQuestion, moreSection, letterEditor, writingDesk, sentLettersSection
+    ];
+    allSections.forEach(s => {
+        if(s) s.classList.remove('active');
+    });
     section.classList.add('active');
   }
 
-  moreBtn.addEventListener('click', function() {
-    showSection(moreSection);
-  });
-
-  moreBackBtn.addEventListener('click', function (){
-    showSection(hiLigaya);
-  });
-
-  // navigation for each Next button
-  hiLigayaNextBtn.addEventListener('click', function() {
-    showSection(story);
-  });
-
+  // --- STORY SCROLL LOGIC ---
   storyNextBtn.disabled = true;
   storyNextBtn.style.opacity = "0.5";
 
-  // STORY SCROLL CHECK
   function checkIfLikeUVisible() {
     const text = storyContent.innerText.toLowerCase();
-    const likeUIndex = text.indexOf("i like u");
-    if (likeUIndex === -1) return; // no match found
+    if (!text.includes("i like u")) return;
 
     const range = document.createRange();
-
-    // Find "i like u" inside the storyContent
     const walker = document.createTreeWalker(storyContent, NodeFilter.SHOW_TEXT);
     let currentNode, found = false;
     while (walker.nextNode()) {
       currentNode = walker.currentNode;
-      const nodeIndex = currentNode.textContent.toLowerCase().indexOf("i like u");
-      if (nodeIndex !== -1) {
+      if (currentNode.textContent.toLowerCase().includes("i like u")) {
         found = true;
         range.selectNodeContents(currentNode);
         break;
@@ -78,7 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (!found) return;
-
     const rect = range.getBoundingClientRect();
     const containerRect = storyContent.getBoundingClientRect();
 
@@ -88,52 +207,32 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // watch scrolling
   ['scroll', 'touchmove', 'wheel'].forEach(ev => {
     storyContent.addEventListener(ev, () => setTimeout(checkIfLikeUVisible, 50), { passive: true });
   });
 
-  storyNextBtn.addEventListener('click', function() {
+  storyNextBtn.addEventListener('click', () => {
     if (!storyNextBtn.disabled) showSection(last);
   });
 
-  lastButton.addEventListener('click', function() {
-    startFunnyQuestions();
-  });
+  lastButton.addEventListener('click', startFunnyQuestions);
 
-  // PROGRESSIVE MESSAGES (FIXED: all commas present!)
+  // --- FUNNY QUESTIONS LOGIC ---
   const messages = [
-    "so what do u think of that", 
-    "okay ba yon??? kung hindi",
-    "wag na wag na, i delete na to",
-    "HAHAHHA baliw yan",
-    "gusto ko lang talaga iyabang website ko sayo",
-    "emerut",
+    "so what do u think of that", "okay ba yon??? kung hindi",
+    "wag na wag na, i delete na to", "HAHAHHA baliw yan",
+    "gusto ko lang talaga iyabang website ko sayo", "emerut",
     "i made this website for u talaga",
     "i dont have the guts to ask u in person e, so dito nalang HAHHAHA",
-    "ummm",
-    "uhhhhhhhhh",
-    "jusko po",
-    "parang matatae ako HAHHAHA",
+    "ummm", "uhhhhhhhhh", "jusko po", "parang matatae ako HAHHAHA",
     "pasko naba? merry christmas tomboy, or new year na? happy new year tombits",
-    "yon",
-    "hmmm",
-    "sooooo",
-    "may graham ba kayo? padala nalang if meron:)))",
-    "okay last na talaga",
-    "last next na to...",
-    "engk HAHHAHA",
-    "okay serious time",
-    "serious ako ah HAHAHHA",
-    "idk if its too early",
+    "yon", "hmmm", "sooooo", "may graham ba kayo? padala nalang if meron:)))",
+    "okay last na talaga", "last next na to...", "engk HAHHAHA", "okay serious time",
+    "serious ako ah HAHAHHA", "idk if its too early",
     "but i really wanna know u better, di ko alam limitations ko pag ganto set up e",
-    "idk how to act",
-    "and maybe this would turn out great diba",
-    "and dun din naman sya papunta",
+    "idk how to act", "and maybe this would turn out great diba", "and dun din naman sya papunta",
     "anyway happy new year, i hope this year, u would prioritize yourself more, u would take care of yourself more and please no more self harm ah, thank u for making half of the year interesting",
-    "so heres my question",
-    "simple question lang naman i2 ",
-    "umm...",
+    "so heres my question", "simple question lang naman i2 ", "umm...",
   ];
   let currentMessage = 0;
 
@@ -152,68 +251,80 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // FINAL QUESTION BUTTONS
-  emailjs.init("D9TvNzlXQBfPCCqFy"); // your public key
+  // --- EMAILJS & SEND LOGIC ---
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("D9TvNzlXQBfPCCqFy");
+  }
 
-  // create loading overlay
   const loadingOverlay = document.createElement("div");
   loadingOverlay.className = "loading-overlay";
   loadingOverlay.textContent = "wait lang tomboy...";
   document.body.appendChild(loadingOverlay);
 
-  function showLoading() {
-    loadingOverlay.classList.add("active");
-  }
+  function showLoading() { loadingOverlay.classList.add("active"); }
+  function hideLoading() { loadingOverlay.classList.remove("active"); }
 
-  function hideLoading() {
-    loadingOverlay.classList.remove("active");
-  }
+  // --- FIXED: REDIRECT TO MORE SECTION AFTER SENDING ---
+  sendLetterBtn.addEventListener('click', function() {
+    const messageContent = letterText.value;
+    if (!messageContent.trim()) {
+        const paper = document.querySelector('.stationery-paper');
+        if(paper) paper.classList.add('shake');
+        setTimeout(() => paper.classList.remove('shake'), 300);
+        alert("oy sulat ka muna!");
+        return;
+    }
+
+    showLoading();
+    emailjs.send("service_oj58kby", "template_1v79j7h", {
+      name: "Ligaya (Custom Letter)",
+      time: new Date().toLocaleString(),
+      message: messageContent
+    }).then(function() {
+      saveLetterLocally(messageContent); 
+      hideLoading();
+      alert("Sent! ❤️ Mapupunta na 'to sa collection mo.");
+      
+      // Clear inputs
+      letterText.value = "";
+      if (signaturePad) signaturePad.clear();
+      
+      // FIX: Go back to moreSection instead of 'last'
+      showSection(moreSection); 
+    }, function(error) {
+      hideLoading();
+      alert("Failed to send letter. Check connection!");
+    });
+  });
 
   yesBtn.addEventListener('click', function() {
     showLoading();
-
     emailjs.send("service_oj58kby", "template_1v79j7h", {
       name: "Ligaya",
       time: new Date().toLocaleString(),
       message: "Ligaya clicked YES!"
-    }).then(
-      function(response) {
-        hideLoading();
-        finalQuestion.innerHTML = `
-          <h1>oh dang</h1>
-          <img src="wow.jpg" alt="pic" class="reaction-pic">
-          <p>happy new year:))</p>
-          <p>dw about your answer, nakasend na sakin yan:)))</p>
-        `;
-      },
-      function(error) {
-        hideLoading();
-        alert("something went wrong, try again");
-      }
-    );
+    }).then(function() {
+      hideLoading();
+      finalQuestion.innerHTML = `<h1>oh dang</h1><img src="wow.jpg" alt="pic" class="reaction-pic"><p>happy new year:))</p><p>dw about your answer, nakasend na sakin yan:)))</p>`;
+    }, function() {
+      hideLoading();
+      alert("something went wrong, try again");
+    });
   });
 
   noBtn.addEventListener('click', function() {
     showLoading();
-
     emailjs.send("service_oj58kby", "template_1v79j7h", {
       name: "Ligaya",
       time: new Date().toLocaleString(),
       message: "Ligaya clicked NO..."
-    }).then(
-      function(response) {
-        hideLoading();
-        finalQuestion.innerHTML = `
-          <h1>aww</h1>
-          <img src="sad.jpg" alt="pic" class="reaction-pic">
-          <p>its okay po</p>
-        `;
-      },
-      function(error) {
-        hideLoading();
-        alert("something went wrong, try again");
-      }
-    );
+    }).then(function() {
+      hideLoading();
+      finalQuestion.innerHTML = `<h1>aww</h1><img src="sad.jpg" alt="pic" class="reaction-pic"><p>its okay po</p>`;
+    }, function() {
+      hideLoading();
+      alert("something went wrong, try again");
+    });
   });
 
   window.showSection = showSection;
